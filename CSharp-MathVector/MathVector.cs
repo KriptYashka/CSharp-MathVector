@@ -167,7 +167,6 @@ namespace CSharp_LinearAlgebra
         }
 
 		/* Перегрузка операторов */
-
 		public static IMathVector operator +(MathVector vector, double k)
 		{
 			return vector.SumNumber(k);
