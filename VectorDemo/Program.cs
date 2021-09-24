@@ -6,6 +6,9 @@ namespace VectorDemo
 {
     class Program
     {
+        /// <summary>
+        /// Операции меню, которые можно совершить в приложении
+        /// </summary>
         public enum Operations
         {
             exit = 0,
@@ -76,6 +79,32 @@ namespace VectorDemo
             return number;
         }
 
+        private static bool WriteErrorId(int id, int count)
+        {
+            bool flag = false;
+            if ((id < 0) || (id >= count))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"Ошибка: вектора {id + 1} не существует");
+                Console.ResetColor();
+                flag = true;
+            }
+            return flag;
+        }
+
+        private static bool WriteErrorDimensions(IMathVector vec1, IMathVector vec2)
+        {
+            bool flag = false;
+            if (vec1.Dimensions != vec2.Dimensions)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"Ошибка: вектора имеют разные пространства");
+                Console.ResetColor();
+                flag = true;
+            }
+            return flag;
+        }
+
         static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -85,9 +114,9 @@ namespace VectorDemo
             // MathVector vector1 = new MathVector(points);
             MathVector[] vectors = new MathVector[50];
             int count = 0;
-            Operations select = Operations.add;
+            Operations select;
             int sel, idCurrent, idSecond;
-            while (select != Operations.exit)
+            do
             {
                 WriteMenu();
                 select = ReadSelect();
@@ -98,28 +127,34 @@ namespace VectorDemo
                         break;
                     case Operations.show:
                         Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine();
                         for (int i = 0; i < count; ++i)
                         {
-                            Console.WriteLine($"{i+1}. " + vectors[i]);
+                            Console.WriteLine($"{i + 1}. " + vectors[i]);
                         }
                         Console.ResetColor();
                         break;
                     case Operations.sum:
                         sel = ReadNumberOrVector();
                         idCurrent = SelectIdVector();
+                        if (WriteErrorId(idCurrent, count)) break;
                         if (sel == 1)
                         {
                             int k = ReadNumber();
                             vectors[idCurrent] = (MathVector)(vectors[idCurrent] + k); // Взаимодействие с интерфейсом
-                        } else if (sel == 2)
+                        }
+                        else if (sel == 2)
                         {
                             idSecond = SelectIdVector();
+                            if (WriteErrorId(idSecond, count)) break;
+                            if (WriteErrorDimensions(vectors[idCurrent], vectors[idSecond])) break;
                             vectors[idCurrent] = (MathVector)(vectors[idCurrent] + vectors[idSecond]);
                         }
                         break;
                     case Operations.minus:
                         sel = ReadNumberOrVector();
                         idCurrent = SelectIdVector();
+                        if (WriteErrorId(idCurrent, count)) break;
                         if (sel == 1)
                         {
                             int k = ReadNumber();
@@ -128,12 +163,15 @@ namespace VectorDemo
                         else if (sel == 2)
                         {
                             idSecond = SelectIdVector();
+                            if (WriteErrorId(idSecond, count)) break;
+                            if (WriteErrorDimensions(vectors[idCurrent], vectors[idSecond])) break;
                             vectors[idCurrent] = (MathVector)(vectors[idCurrent] - vectors[idSecond]);
                         }
                         break;
                     case Operations.multiply:
                         sel = ReadNumberOrVector();
                         idCurrent = SelectIdVector();
+                        if (WriteErrorId(idCurrent, count)) break;
                         if (sel == 1)
                         {
                             int k = ReadNumber();
@@ -141,21 +179,30 @@ namespace VectorDemo
                         }
                         else if (sel == 2)
                         {
-                            
+
                             idSecond = SelectIdVector();
+                            if (WriteErrorId(idSecond, count)) break;
+                            if (WriteErrorDimensions(vectors[idCurrent], vectors[idSecond])) break;
                             Console.Write("1. Покомпонентное умножение\n2. Скалярное умножение\nВыбор: ");
                             Console.ForegroundColor = ConsoleColor.Green;
                             sel = Convert.ToInt32(Console.ReadLine());
                             Console.ResetColor();
-                            vectors[idCurrent] = (MathVector)(vectors[idCurrent] * vectors[idSecond]);
+                            if (sel == 1)
+                            {
+                                vectors[idCurrent] = (MathVector)(vectors[idCurrent] * vectors[idSecond]);
+                            } else if (sel == 2)
+                            {
+                                double res = vectors[idCurrent] % vectors[idSecond];
+                                Console.ForegroundColor = ConsoleColor.Blue;
+                                Console.WriteLine($"Скалярное умножение векторов {idCurrent} и {idSecond}: {res}");
+                                Console.ResetColor();
+                            }
                         }
                         break;
                     case Operations.divide:
                         sel = ReadNumberOrVector();
                         idCurrent = SelectIdVector();
-                        if (idCurrent < 0 || idCurrent >= count){
-                            break;
-                        }
+                        if (WriteErrorId(idCurrent, count)) break;
                         if (sel == 1)
                         {
                             int k = ReadNumber();
@@ -164,22 +211,26 @@ namespace VectorDemo
                         else if (sel == 2)
                         {
                             idSecond = SelectIdVector();
+                            if (WriteErrorId(idSecond, count)) break;
                             vectors[idCurrent] = (MathVector)(vectors[idCurrent] / vectors[idSecond]);
                         }
                         break;
                     case Operations.distance:
                         idCurrent = SelectIdVector();
                         idSecond = SelectIdVector();
+                        if (WriteErrorId(idCurrent, count)) break;
+                        if (WriteErrorId(idSecond, count)) break;
+                        if (WriteErrorDimensions(vectors[idCurrent], vectors[idSecond])) break;
                         double dist = vectors[idCurrent].CalcDistance(vectors[idSecond]);
                         Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.WriteLine($"Расстояние между вектором {idCurrent} и вектором {idSecond} равно {dist}");
+                        Console.WriteLine($"Расстояние между вектором {idCurrent + 1} и {idSecond + 1} равно {dist}");
                         Console.ResetColor();
                         break;
                     default:
                         select = Operations.exit;
                         break;
                 }
-            }
+            } while (select != Operations.exit);
         }
     }
 }
