@@ -212,6 +212,47 @@ namespace CSharp_LinearAlgebra
 			return vector.ScalarMultiply(vector2);
 		}
 
+		public static bool operator ==(MathVector vector1, MathVector vector2)
+        {
+			bool flag = true;
+			if (vector1.Dimensions != vector2.Dimensions)
+            {
+				flag = false;
+			} else
+            {
+				for (int i = 0; i < vector1.Dimensions; ++i)
+				{
+					if (vector1[i] != vector2[i])
+					{
+						flag = false;
+						break;
+					}
+				}
+			}
+			return flag;
+		}
+
+		public static bool operator !=(MathVector vector1, MathVector vector2)
+		{
+			bool flag = false;
+			if (vector1.Dimensions != vector2.Dimensions)
+			{
+				flag = true;
+			}
+			else
+			{
+				for (int i = 0; i < vector1.Dimensions; ++i)
+				{
+					if (vector1[i] != vector2[i])
+					{
+						flag = true;
+						break;
+					}
+				}
+			}
+			return flag;
+		}
+
 		public override string ToString()
 		{
 			string res = $"Вектор\nКоличество точек: {Dimensions}\nТочки:";
