@@ -228,6 +228,34 @@ namespace MathVectorTests
         }
 
         [TestMethod]
+        public void TestScalarMultiplyVector()
+        {
+            double[] points1 = new double[] { -0.5, 2, 19 };
+            double[] points2 = new double[] { 2, 2, 0 };
+            double expected = 3;
+            MathVector vector1 = new MathVector(points1);
+            MathVector vector2 = new MathVector(points2);
+
+            double actual = vector1.ScalarMultiply(vector2);
+
+            Assert.AreEqual(expected, actual, 0.00001);
+        }
+        [TestMethod]
+        public void TestScalarMultiplyOperationVector()
+        {
+            double[] points1 = new double[] { -0.5, 2, 19 };
+            double[] points2 = new double[] { 2, 2, 0 };
+            double expected = 3;
+            MathVector vector1 = new MathVector(points1);
+            MathVector vector2 = new MathVector(points2);
+
+            double actual = vector1 % vector2;
+
+            Assert.AreEqual(expected, actual, 0.00001);
+        }
+
+
+        [TestMethod]
         public void TestMultiplyDiffrentDimensions()
         {
             double[] points1 = new double[] { -0.5, 2, 19, 0 };
