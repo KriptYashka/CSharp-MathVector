@@ -124,6 +124,8 @@ namespace CSharp_LinearAlgebra
 		public IMathVector Divide(double k)
         {
 			double[] newPoints = new double[this.Dimensions];
+			if (k == 0)
+				return null;
 			for (int i = 0; i < this.Dimensions; ++i)
 			{
 				newPoints[i] = this[i] / k;
@@ -142,6 +144,8 @@ namespace CSharp_LinearAlgebra
 				double[] newPoints = new double[Dimensions];
 				for (int i = 0; i < Dimensions; ++i)
 				{
+					if (vector[i] == 0)
+						return null;
 					newPoints[i] = this[i] / vector[i];
 				}
 				return new MathVector(newPoints);
