@@ -110,10 +110,15 @@ namespace VectorDemo
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Программа \"Математические вектора\"\n");
             Console.ResetColor();
+
+            /* Проверка на отработку Exception */
+
             double[] points = {1, 4, 4};
             MathVector vector1 = new MathVector(points);
+            points = new double[] { 1, 4, 4, 3};
             MathVector vector2 = new MathVector(points);
-            Console.WriteLine($"{vector1 == vector2}");
+            Console.WriteLine($"{vector1 + vector2}");
+
             MathVector[] vectors = new MathVector[50];
             int count = 0;
             Operations select;

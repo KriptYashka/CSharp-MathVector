@@ -16,6 +16,7 @@ namespace CSharp_LinearAlgebra
 		/// Индексатор для доступа к элементам вектора. Нумерация с нуля.
 		/// </summary>
 		/// <value>i-ая точка в математическом векторе.</value>
+		/// <exception cref="Exception">Индекс вне вектора</exception>
 		double this[int i] { get; set; }
 
 		/// <summary>
@@ -29,6 +30,7 @@ namespace CSharp_LinearAlgebra
 		/// </summary>
 		/// <param name="number">Число, с которым будет сложение всех элементов вектора.</param>
 		/// <returns>Вектор, сложенный с числом.</returns>
+		/// <exception cref="Exception">Ошибка разных пространств векторов</exception>
 		IMathVector SumNumber(double number);
 
 		/// <summary>
@@ -43,6 +45,7 @@ namespace CSharp_LinearAlgebra
 		/// </summary>
 		/// <param name="vector">Математический вектор.</param>
 		/// <returns>Вектор, сложенный покомпонентно с другим вектором.</returns>
+		/// <exception cref="Exception">Ошибка разных пространств векторов</exception>
 		IMathVector Sum(IMathVector vector);
 
 		/// <summary>
@@ -50,6 +53,7 @@ namespace CSharp_LinearAlgebra
 		/// </summary>
 		/// <param name="vector">Математический вектор.</param>
 		/// <returns>Вектор, умноженный покомпонентно на другой вектор.</returns>
+		/// <exception cref="Exception">Ошибка разных пространств векторов</exception>
 		IMathVector Multiply(IMathVector vector);
 
 		/// <summary>
@@ -57,6 +61,7 @@ namespace CSharp_LinearAlgebra
 		/// </summary>
 		/// <param name="vector">Математический вектор.</param>
 		/// <returns>Результат скалярного умножения векторов.</returns>
+		/// <exception cref="Exception">Ошибка разных пространств векторов</exception>
 		double ScalarMultiply(IMathVector vector);
 
 		/// <summary>
@@ -64,6 +69,8 @@ namespace CSharp_LinearAlgebra
 		/// </summary>
 		/// <param name="vector">Математический вектор.</param>
 		/// <returns>Вектор, поделенный покомпонентно на другой вектор.</returns>
+		/// <exception cref="Exception">Ошибка разных пространств векторов</exception>
+		/// <exception cref="Exception">Деление на нуль</exception>
 		public IMathVector Divide(IMathVector vector);
 
 		/// <summary>
@@ -71,6 +78,7 @@ namespace CSharp_LinearAlgebra
 		/// </summary>
 		/// <param name="number">Вещественное число, на которое делится вектор</param>
 		/// <returns>Вектор, поделенный на число</returns>
+		/// <exception cref="Exception">Деление на нуль</exception>
 		public IMathVector Divide(double number);
 
 
@@ -79,6 +87,7 @@ namespace CSharp_LinearAlgebra
 		/// </summary>
 		/// <param name="vector">Математический вектор.</param>
 		/// <returns>Расстояние между двумя векторами.</returns>
+		/// <exception cref="Exception">Ошибка разных пространств векторов</exception>
 		/// http://kadm.kmath.ru/files/linalg17.pdf#:~:text=Расстоянием%20между%20векторами%20x%20и,с%20обычным%20скалярным%20произведением%20векторов
 		double CalcDistance(IMathVector vector);
 	}

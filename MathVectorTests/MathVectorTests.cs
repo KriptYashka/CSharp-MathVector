@@ -7,7 +7,6 @@ namespace MathVectorTests
     public class ClassTestsMathVector
     {
         /* Свойства */
-
         [TestMethod]
         public void TestDimensions()
         {
@@ -396,5 +395,55 @@ namespace MathVectorTests
             Assert.IsNull(actual);
         }
 
+        [TestMethod]
+        public void TestCalcDist_1()
+        {
+            double[] points1 = new double[] { 0, 1, 1 };
+            MathVector vector1 = new MathVector(points1);
+            MathVector vector2 = new MathVector(vector1);
+
+            double expected = 0;
+            double actual = vector1.CalcDistance(vector2);
+
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void TestCalcDist_2()
+        {
+            double[] points1 = new double[] { 0, 0, 10 };
+            double[] points2 = new double[] { 0, 0, 0 };
+            MathVector vector1 = new MathVector(points1);
+            MathVector vector2 = new MathVector(points2);
+
+            double expected = 10;
+            double actual = vector1.CalcDistance(vector2);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestEnum()
+        {
+            double[] points1 = new double[] { 0, 0, 10 };
+            double[] expected = new double[] { 0, 0, 10 };
+            MathVector vector1 = new MathVector(points1);
+            double[] actual = new double[3];
+            int i = 0;
+            foreach (double point in vector1)
+            {
+                actual[i++] = point;
+            }
+
+            bool flag = true;
+            for (i = 0; i < 3; ++i)
+            {
+                if (actual[i] != expected[i])
+                {
+                    flag = false;
+                }
+            }
+
+            Assert.IsTrue(flag);
+        }
     }
 }

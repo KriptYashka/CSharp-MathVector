@@ -9,12 +9,20 @@ namespace CSharp_LinearAlgebra
 
 		public MathVector(MathVector vector)
         {
-			this.points = vector.points;
+			points = new double[vector.Dimensions];
+			for (int i = 0; i < vector.Dimensions; ++i)
+            {
+				this.points[i] = vector[i];
+            }
         }
 
 		public MathVector(double[] newPoints)
         {
-			points = newPoints;
+			points = new double[newPoints.Length];
+			for (int i = 0; i < newPoints.Length; ++i)
+            {
+				this.points[i] = newPoints[i];
+            }
         }
 
 		public int Dimensions 
@@ -29,10 +37,14 @@ namespace CSharp_LinearAlgebra
 		{
 			get 
 			{
+				if (i < 0 || i >= this.Dimensions)
+					throw new Exception("Ошибка разных пространств векторов");
 				return points[i];
 			}
 			set 
 			{
+				if (i < 0 || i >= this.Dimensions)
+					throw new IndexOutOfRangeException();
 				points[i] = value;
 			}
 		}
@@ -73,59 +85,52 @@ namespace CSharp_LinearAlgebra
 		public IMathVector Sum(IMathVector vector)
         {
 			if (vector.Dimensions != this.Dimensions)
-            {
-				return null;
-			} 
-			else
-            {
-				double[] newPoints = new double[Dimensions];
-				for (int i = 0; i < Dimensions; ++i)
-				{
-					newPoints[i] = this[i] + vector[i];
-				}
-				return new MathVector(newPoints);
+			{
+				throw new Exception("Ошибка разных пространств векторов");
 			}
+			double[] newPoints = new double[Dimensions];
+			for (int i = 0; i < Dimensions; ++i)
+			{
+				newPoints[i] = this[i] + vector[i];
+			}
+			return new MathVector(newPoints);
 		}
 
 		public IMathVector Multiply(IMathVector vector)
         {
 			if (vector.Dimensions != this.Dimensions)
 			{
-				return null;
+				throw new Exception("Ошибка разных пространств векторов");
 			}
-			else
+			double[] newPoints = new double[Dimensions];
+			for (int i = 0; i < Dimensions; ++i)
 			{
-				double[] newPoints = new double[Dimensions];
-				for (int i = 0; i < Dimensions; ++i)
-				{
-					newPoints[i] = vector[i] * this[i];
-				}
-				return new MathVector(newPoints);
+				newPoints[i] = vector[i] * this[i];
 			}
+			return new MathVector(newPoints);
 		}
 
 		public double ScalarMultiply(IMathVector vector)
         {
 			if (vector.Dimensions != this.Dimensions)
 			{
-				return 0;
+				throw new Exception("Ошибка разных пространств векторов");
 			}
-			else
+			double res = 0;
+			for (int i = 0; i < Dimensions; ++i)
 			{
-				double res = 0;
-				for (int i = 0; i < Dimensions; ++i)
-				{
-					res += vector[i] * this[i];
-				}
-				return res;
+				res += vector[i] * this[i];
 			}
+			return res;
 		}
 
 		public IMathVector Divide(double k)
         {
 			double[] newPoints = new double[this.Dimensions];
 			if (k == 0)
-				return null;
+			{
+				throw new DivideByZeroException();
+			}
 			for (int i = 0; i < this.Dimensions; ++i)
 			{
 				newPoints[i] = this[i] / k;
@@ -137,37 +142,32 @@ namespace CSharp_LinearAlgebra
 		{
 			if (vector.Dimensions != this.Dimensions)
 			{
-				return null;
+				throw new Exception("Ошибка разных пространств векторов");
 			}
-			else
+			double[] newPoints = new double[Dimensions];
+			for (int i = 0; i < Dimensions; ++i)
 			{
-				double[] newPoints = new double[Dimensions];
-				for (int i = 0; i < Dimensions; ++i)
-				{
-					if (vector[i] == 0)
-						return null;
-					newPoints[i] = this[i] / vector[i];
-				}
-				return new MathVector(newPoints);
+				if (vector[i] == 0)
+					throw new DivideByZeroException();
+				
+				newPoints[i] = this[i] / vector[i];
 			}
+			return new MathVector(newPoints);
 		}
 
 		public double CalcDistance(IMathVector vector)
         {
 			if (vector.Dimensions != this.Dimensions)
 			{
-				return 0;
+				throw new Exception("Ошибка разных пространств векторов");
 			}
-			else
+			double[] newPoints = new double[Dimensions];
+			for (int i = 0; i < Dimensions; ++i)
 			{
-				double[] newPoints = new double[Dimensions];
-				for (int i = 0; i < Dimensions; ++i)
-				{
-					newPoints[i] = this[i] - vector[i];
-				}
-				double res = new MathVector(newPoints).Length;
-				return res;
+				newPoints[i] = this[i] - vector[i];
 			}
+			double res = new MathVector(newPoints).Length;
+			return res;
         }
 
 		/* Перегрузка операторов */
