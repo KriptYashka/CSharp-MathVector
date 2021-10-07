@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CSharp_LinearAlgebra;
+using System;
 
 namespace MathVectorTests
 {
@@ -140,9 +141,10 @@ namespace MathVectorTests
             double[] points2 = new double[] { 5, 5, 0 };
             MathVector vector1 = new MathVector(points1);
             MathVector vector2 = new MathVector(points2);
-            MathVector actual = (MathVector)vector1.Sum(vector2);
-
-            Assert.IsNull(actual);
+            
+            Assert.ThrowsException<Exception>(delegate {
+                MathVector actual = (MathVector)vector1.Sum(vector2);
+            });
         }
 
         [TestMethod]
@@ -152,9 +154,10 @@ namespace MathVectorTests
             double[] points2 = new double[] { 5, 5, 0 };
             MathVector vector1 = new MathVector(points1);
             MathVector vector2 = new MathVector(points2);
-            MathVector actual = (MathVector)(vector1 + vector2);
-
-            Assert.IsNull(actual);
+            
+            Assert.ThrowsException<Exception>(delegate {
+                MathVector actual = (MathVector)(vector1 + vector2);
+            });
         }
 
         [TestMethod]
@@ -164,9 +167,10 @@ namespace MathVectorTests
             double[] points2 = new double[] { 5, 5, 0 };
             MathVector vector1 = new MathVector(points1);
             MathVector vector2 = new MathVector(points2);
-            MathVector actual = (MathVector)(vector1 - vector2);
-
-            Assert.IsNull(actual);
+            
+            Assert.ThrowsException<Exception>(delegate {
+                MathVector actual = (MathVector)(vector1 - vector2);
+            });
         }
 
         /* Умножение */
@@ -262,9 +266,9 @@ namespace MathVectorTests
             MathVector vector1 = new MathVector(points1);
             MathVector vector2 = new MathVector(points2);
 
-            MathVector actual = (MathVector)(vector1 * vector2);
-
-            Assert.IsNull(actual);
+            Assert.ThrowsException<Exception>(delegate {
+                MathVector actual = (MathVector)(vector1 * vector2);
+            });
         }
 
         /* Деление */
@@ -332,9 +336,9 @@ namespace MathVectorTests
             MathVector vector1 = new MathVector(points1);
             MathVector vector2 = new MathVector(points2);
 
-            MathVector actual = (MathVector)(vector1 / vector2);
-
-            Assert.IsNull(actual);
+            Assert.ThrowsException<Exception>(delegate {
+                MathVector actual = (MathVector)(vector1 / vector2);
+            });
         }
 
         [TestMethod]
@@ -345,9 +349,11 @@ namespace MathVectorTests
             MathVector vector1 = new MathVector(points1);
             MathVector vector2 = new MathVector(points2);
 
-            MathVector actual = (MathVector)(vector1.Divide(vector2));
+            //MathVector actual = (MathVector)(vector1.Divide(vector2));
 
-            Assert.IsNull(actual);
+            Assert.ThrowsException<Exception>(delegate {
+                MathVector actual = (MathVector)(vector1.Divide(vector2));
+            });
         }
 
         [TestMethod]
@@ -357,10 +363,9 @@ namespace MathVectorTests
             double[] points2 = new double[] { 0, 1, 0 };
             MathVector vector1 = new MathVector(points1);
             MathVector vector2 = new MathVector(points2);
-
-            MathVector actual = (MathVector)(vector1.Divide(vector2));
-
-            Assert.IsNull(actual);
+            Assert.ThrowsException<DivideByZeroException>(delegate {
+                MathVector actual = (MathVector)(vector1.Divide(vector2));
+            });
         }
         [TestMethod]
         public void TestDivZeroNumber()
@@ -368,9 +373,10 @@ namespace MathVectorTests
             double[] points1 = new double[] { 0, 0, 1 };
             MathVector vector1 = new MathVector(points1);
 
-            MathVector actual = (MathVector)(vector1.Divide(0));
+            Assert.ThrowsException<DivideByZeroException>(delegate {
+                MathVector actual = (MathVector)(vector1.Divide(0));
+            });
 
-            Assert.IsNull(actual);
         }
         [TestMethod]
         public void TestDivOperationZeroVector()
@@ -380,9 +386,9 @@ namespace MathVectorTests
             MathVector vector1 = new MathVector(points1);
             MathVector vector2 = new MathVector(points2);
 
-            MathVector actual = (MathVector)(vector1 / vector2);
-
-            Assert.IsNull(actual);
+            Assert.ThrowsException<DivideByZeroException>(delegate {
+                MathVector actual = (MathVector)(vector1 / vector2);
+            });
         }
         [TestMethod]
         public void TestDivOperationZeroNumber()
@@ -390,9 +396,9 @@ namespace MathVectorTests
             double[] points1 = new double[] { 0, 0, 1 };
             MathVector vector1 = new MathVector(points1);
 
-            MathVector actual = (MathVector)(vector1 / 0);
-
-            Assert.IsNull(actual);
+            Assert.ThrowsException<DivideByZeroException>(delegate {
+                MathVector actual = (MathVector)(vector1 / 0);
+            });
         }
 
         [TestMethod]

@@ -7,15 +7,15 @@ namespace CSharp_LinearAlgebra
 	public interface IMathVector : IEnumerable
 	{
 		/// <summary>
-		/// Получить размерность вектора (количество координат).
+		/// Get the dimension of the vector.
 		/// </summary>
-		/// <value>Количество координат.</value>
+		/// <value>Count of coordinats.</value>
 		int Dimensions { get; }
 
 		/// <summary>
-		/// Индексатор для доступа к элементам вектора. Нумерация с нуля.
+		/// Index of element in vector.
 		/// </summary>
-		/// <value>i-ая точка в математическом векторе.</value>
+		/// <value>Point "i" in vector.</value>
 		/// <exception cref="Exception">Индекс вне вектора</exception>
 		double this[int i] { get; set; }
 

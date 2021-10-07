@@ -222,7 +222,8 @@ namespace CSharp_LinearAlgebra
 			if (vector1.Dimensions != vector2.Dimensions)
             {
 				flag = false;
-			} else
+			} 
+			else
             {
 				for (int i = 0; i < vector1.Dimensions; ++i)
 				{
