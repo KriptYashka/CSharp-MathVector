@@ -16,78 +16,78 @@ namespace CSharp_LinearAlgebra
 		/// Index of element in vector.
 		/// </summary>
 		/// <value>Point "i" in vector.</value>
-		/// <exception cref="Exception">Индекс вне вектора</exception>
+		/// <exception cref="Exception">Index out of range</exception>
 		double this[int i] { get; set; }
 
 		/// <summary>
-		/// Рассчитать длину (модуль) вектора.
+		/// Calculate length of vector.
 		/// </summary>
-		/// <value>Длина вектора в пространстве.</value>
+		/// <value>Length of vector.</value>
 		double Length { get; }
 
 		/// <summary>
-		/// Покомпонентное сложение с числом.
+		/// Add a vector with a number component.
 		/// </summary>
-		/// <param name="number">Число, с которым будет сложение всех элементов вектора.</param>
-		/// <returns>Вектор, сложенный с числом.</returns>
-		/// <exception cref="Exception">Ошибка разных пространств векторов</exception>
+		/// <param name="number">Number, that vector is sum.</param>
+		/// <returns>Vector with added number.</returns>
+		/// <exception cref="Exception">Error of dimensions.</exception>
 		IMathVector SumNumber(double number);
 
 		/// <summary>
-		/// Покомпонентное умножение на число.
+		/// Multiply a vector with a number component.
 		/// </summary>
 		/// <param name="number">Число, с которым будет умножение всех элементов вектора.</param>
 		/// <returns>Вектор, умноженный на число.</returns>
 		IMathVector MultiplyNumber(double number);
 
 		/// <summary>
-		/// Сложение с другим вектором.
+		/// Add a vector with a vector component.
 		/// </summary>
-		/// <param name="vector">Математический вектор.</param>
+		/// <param name="vector">MathVector.</param>
 		/// <returns>Вектор, сложенный покомпонентно с другим вектором.</returns>
-		/// <exception cref="Exception">Ошибка разных пространств векторов</exception>
+		/// <exception cref="Exception">Error of dimensions.</exception>
 		IMathVector Sum(IMathVector vector);
 
 		/// <summary>
-		/// Покомпонентное умножение с другим вектором.
+		/// Multiply a vector with a vector component.
 		/// </summary>
-		/// <param name="vector">Математический вектор.</param>
+		/// <param name="vector">MathVector.</param>
 		/// <returns>Вектор, умноженный покомпонентно на другой вектор.</returns>
-		/// <exception cref="Exception">Ошибка разных пространств векторов</exception>
+		/// <exception cref="Exception">Error of dimensions.</exception>
 		IMathVector Multiply(IMathVector vector);
 
 		/// <summary>
-		/// Скалярное умножение на другой вектор.
+		/// Scalar multiply a vector with a vector.
 		/// </summary>
-		/// <param name="vector">Математический вектор.</param>
-		/// <returns>Результат скалярного умножения векторов.</returns>
-		/// <exception cref="Exception">Ошибка разных пространств векторов</exception>
+		/// <param name="vector">Mathvector.</param>
+		/// <returns>Result of scalar multiply a vector with a vector.</returns>
+		/// <exception cref="Exception">Error of dimensions.</exception>
 		double ScalarMultiply(IMathVector vector);
 
 		/// <summary>
-		/// Покомпонентно поделить на другой вектор
+		/// Divide a vector with a vector component.
 		/// </summary>
-		/// <param name="vector">Математический вектор.</param>
-		/// <returns>Вектор, поделенный покомпонентно на другой вектор.</returns>
-		/// <exception cref="Exception">Ошибка разных пространств векторов</exception>
-		/// <exception cref="Exception">Деление на нуль</exception>
+		/// <param name="vector">MathVector.</param>
+		/// <returns>Divided vector on vector component.</returns>
+		/// <exception cref="Exception">Error of dimensions.</exception>
+		/// <exception cref="DivideByZeroException">Divide by zero.</exception>
 		public IMathVector Divide(IMathVector vector);
 
 		/// <summary>
-		/// Покомпонентно делит вектор на число
+		/// Divide a vector with a number component.
 		/// </summary>
-		/// <param name="number">Вещественное число, на которое делится вектор</param>
-		/// <returns>Вектор, поделенный на число</returns>
-		/// <exception cref="Exception">Деление на нуль</exception>
+		/// <param name="number">Double number</param>
+		/// <returns>Divided vector on vector component.</returns>
+		/// <exception cref="DivideByZeroException">Divide by zero</exception>
 		public IMathVector Divide(double number);
 
 
 		/// <summary>
-		/// Вычислить Евклидово расстояние до другого вектора.
+		/// Calculate Evklid distance to vector.
 		/// </summary>
-		/// <param name="vector">Математический вектор.</param>
-		/// <returns>Расстояние между двумя векторами.</returns>
-		/// <exception cref="Exception">Ошибка разных пространств векторов</exception>
+		/// <param name="vector">MathVector.</param>
+		/// <returns>Distance between two vectors.</returns>
+		/// <exception cref="Exception">Error of dimensions</exception>
 		/// http://kadm.kmath.ru/files/linalg17.pdf#:~:text=Расстоянием%20между%20векторами%20x%20и,с%20обычным%20скалярным%20произведением%20векторов
 		double CalcDistance(IMathVector vector);
 	}
