@@ -16,7 +16,7 @@ namespace CSharp_LinearAlgebra
 		/// Index of element in vector.
 		/// </summary>
 		/// <value>Point "i" in vector.</value>
-		/// <exception cref="Exception">Index out of range</exception>
+		/// <exception cref="IndexOutOfRangeException">Index out of range</exception>
 		double this[int i] { get; set; }
 
 		/// <summary>

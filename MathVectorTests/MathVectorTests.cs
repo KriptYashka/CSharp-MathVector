@@ -19,7 +19,7 @@ namespace MathVectorTests
         }
 
         [TestMethod]
-        public void TestIndex()
+        public void TestIndexGet()
         {
             double[] points = new double[] { 1, 2, 3 };
             MathVector vector = new MathVector(points);
@@ -27,18 +27,68 @@ namespace MathVectorTests
             double actual = vector[2];
             Assert.AreEqual(expected, actual, 0.000001);
         }
+        [TestMethod]
+        public void TestIndexSet()
+        {
+            double[] points = new double[] { 1, 2, 3 };
+            MathVector vector = new MathVector(points);
+            vector[0] = 10;
+            double expected = 10;
+            double actual = vector[0];
+            Assert.AreEqual(expected, actual, 0.000001);
+        }
+        [TestMethod]
+        public void TestIndexGetOutMore()
+        {
+            double[] points = new double[] { 1, 2, 3 };
+            MathVector vector = new MathVector(points);
+            Assert.ThrowsException<IndexOutOfRangeException>(() =>
+            {
+                double actual = vector[10];
+            });
+        }
+        [TestMethod]
+        public void TestIndexGetOutLess()
+        {
+            double[] points = new double[] { 1, 2, 3 };
+            MathVector vector = new MathVector(points);
+            Assert.ThrowsException<IndexOutOfRangeException>(() =>
+            {
+                double actual = vector[-1];
+            });
+        }
+        [TestMethod]
+        public void TestIndexSetOutMore()
+        {
+            double[] points = new double[] { 1, 2, 3 };
+            MathVector vector = new MathVector(points);
+            Assert.ThrowsException<IndexOutOfRangeException>(() =>
+            {
+                vector[10] = 2;
+            });
+        }
+        [TestMethod]
+        public void TestIndexSetOutLess()
+        {
+            double[] points = new double[] { 1, 2, 3 };
+            MathVector vector = new MathVector(points);
+            Assert.ThrowsException<IndexOutOfRangeException>(() =>
+            {
+                vector[-1] = 2;
+            });
+        }
 
         [TestMethod]
-        public void TestLength_1()
+        public void TestLengthWithoutPoints()
         {
-            double[] points = new double[] { -10 };
+            double[] points = new double[] { };
             MathVector vector = new MathVector(points);
-            double expected = 10;
+            double expected = 0;
             double actual = vector.Length;
             Assert.AreEqual(expected, actual, 0.000001);
         }
         [TestMethod]
-        public void TestLength_2()
+        public void TestLength()
         {
             double[] points = new double[] { 2, -3, 1, -1, 1 };
             MathVector vector = new MathVector(points);
@@ -61,7 +111,7 @@ namespace MathVectorTests
             MathVector expected = new MathVector(points2);
             MathVector actual = (MathVector)vector.SumNumber(5);
 
-            Assert.IsTrue(expected == actual);
+            AssertEqualVectors(expected, actual);
         }
         [TestMethod]
         public void TestSumOperatorNumber()
@@ -73,7 +123,7 @@ namespace MathVectorTests
             MathVector expected = new MathVector(points2);
             MathVector actual = (MathVector)(vector + 5);
 
-            Assert.IsTrue(expected == actual);
+            AssertEqualVectors(expected, actual);
         }
 
         [TestMethod]
@@ -86,7 +136,7 @@ namespace MathVectorTests
             MathVector expected = new MathVector(points2);
             MathVector actual = (MathVector)(vector - 5);
 
-            Assert.IsTrue(expected == actual);
+            AssertEqualVectors(expected, actual);
         }
 
         [TestMethod]
@@ -101,7 +151,7 @@ namespace MathVectorTests
             MathVector expected = new MathVector(pointsExpected);
             MathVector actual = (MathVector)vector1.Sum(vector2);
 
-            Assert.IsTrue(expected == actual);
+            AssertEqualVectors(expected, actual);
         }
 
         [TestMethod]
@@ -116,7 +166,7 @@ namespace MathVectorTests
             MathVector expected = new MathVector(pointsExpected);
             MathVector actual = (MathVector)(vector1 + vector2);
 
-            Assert.IsTrue(expected == actual);
+            AssertEqualVectors(expected, actual);
         }
 
         [TestMethod]
@@ -131,7 +181,7 @@ namespace MathVectorTests
             MathVector expected = new MathVector(pointsExpected);
             MathVector actual = (MathVector)(vector1 - vector2);
 
-            Assert.IsTrue(expected == actual);
+            AssertEqualVectors(expected, actual);
         }
 
         [TestMethod]
@@ -185,7 +235,7 @@ namespace MathVectorTests
             MathVector expected = new MathVector(pointsExpected);
             MathVector actual = (MathVector)(vector1.MultiplyNumber(2));
 
-            Assert.IsTrue(expected == actual);
+            AssertEqualVectors(expected, actual);
         }
         [TestMethod]
         public void TestMultiplyVector()
@@ -199,7 +249,7 @@ namespace MathVectorTests
             MathVector expected = new MathVector(pointsExpected);
             MathVector actual = (MathVector)(vector1.Multiply(vector2));
 
-            Assert.IsTrue(expected == actual);
+            AssertEqualVectors(expected, actual);
         }
 
         [TestMethod]
@@ -212,7 +262,7 @@ namespace MathVectorTests
             MathVector expected = new MathVector(pointsExpected);
             MathVector actual = (MathVector)(vector1 * 2);
 
-            Assert.IsTrue(expected == actual);
+            AssertEqualVectors(expected, actual);
         }
 
         [TestMethod]
@@ -227,7 +277,7 @@ namespace MathVectorTests
             MathVector expected = new MathVector(pointsExpected);
             MathVector actual = (MathVector)(vector1 * vector2);
 
-            Assert.IsTrue(expected == actual);
+            AssertEqualVectors(expected, actual);
         }
 
         [TestMethod]
@@ -283,7 +333,7 @@ namespace MathVectorTests
             MathVector expected = new MathVector(pointsExpected);
             MathVector actual = (MathVector)(vector1.Divide(10));
 
-            Assert.IsTrue(expected == actual);
+            AssertEqualVectors(expected, actual);
         }
         [TestMethod]
         public void TestDivVector()
@@ -297,7 +347,7 @@ namespace MathVectorTests
             MathVector expected = new MathVector(pointsExpected);
             MathVector actual = (MathVector)(vector1.Divide(vector2));
 
-            Assert.IsTrue(expected == actual);
+            AssertEqualVectors(expected, actual);
         }
 
         [TestMethod]
@@ -310,7 +360,7 @@ namespace MathVectorTests
             MathVector expected = new MathVector(pointsExpected);
             MathVector actual = (MathVector)(vector1 / 10);
 
-            Assert.IsTrue(expected == actual);
+            AssertEqualVectors(expected, actual);
         }
 
         [TestMethod]
@@ -325,7 +375,7 @@ namespace MathVectorTests
             MathVector expected = new MathVector(pointsExpected);
             MathVector actual = (MathVector)(vector1 / vector2);
 
-            Assert.IsTrue(expected == actual);
+            AssertEqualVectors(expected, actual);
         }
 
         [TestMethod]
@@ -348,8 +398,6 @@ namespace MathVectorTests
             double[] points2 = new double[] { 0.5, 6, 0 };
             MathVector vector1 = new MathVector(points1);
             MathVector vector2 = new MathVector(points2);
-
-            //MathVector actual = (MathVector)(vector1.Divide(vector2));
 
             Assert.ThrowsException<Exception>(delegate {
                 MathVector actual = (MathVector)(vector1.Divide(vector2));
@@ -402,7 +450,7 @@ namespace MathVectorTests
         }
 
         [TestMethod]
-        public void TestCalcDist_1()
+        public void TestCalcDistTouched()
         {
             double[] points1 = new double[] { 0, 1, 1 };
             MathVector vector1 = new MathVector(points1);
@@ -414,7 +462,7 @@ namespace MathVectorTests
             Assert.AreEqual(expected, actual);
         }
         [TestMethod]
-        public void TestCalcDist_2()
+        public void TestCalcDist()
         {
             double[] points1 = new double[] { 0, 0, 10 };
             double[] points2 = new double[] { 0, 0, 0 };
@@ -450,6 +498,14 @@ namespace MathVectorTests
             }
 
             Assert.IsTrue(flag);
+        }
+        static private void AssertEqualVectors(MathVector vector1, MathVector vector2)
+        {
+            Assert.AreEqual(vector1.Dimensions, vector2.Dimensions);
+            for (int i = 0; i < vector1.Dimensions; ++i)
+            {
+                Assert.AreEqual(vector1[i], vector2[i]);
+            }
         }
     }
 }
